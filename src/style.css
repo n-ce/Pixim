@@ -1,0 +1,83 @@
+@import 'modern-normalize/modern-normalize.css';
+
+:root {
+  --pixim-lightness: 80%;
+  --pixim-bg: hsl(from var(--pixim-color) h 30% 80%);
+  --pixim-surface: hsl(from var(--pixim-color) h 30% 85%);
+  --pixim-text: hsl(from var(--pixim-color) h s 20%);
+  --pixim-btn: hsl(from var(--pixim-color) h s 100%);
+  --pixim-object: hsl(from var(--pixim-color) h 40% 50%);
+  --pixim-object-text: hsl(from var(--pixim-color) h 60% 80%);
+
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  height: 100dvh;
+  background-color: var(--pixim-bg);
+
+}
+
+main {
+  width: 90%;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
+
+  div {
+    display: none;
+  }
+
+  div,
+  img {
+    animation: fade 0.5s ease-in-out;
+  }
+
+  &.info {
+
+    div {
+      display: block;
+      color: var(--pixim-text);
+    }
+
+    img {
+      display: none;
+    }
+  }
+}
+
+button {
+  position: absolute;
+  right: 0;
+  background: var(--pixim-object);
+  color: var(--pixim-object-text);
+  font-weight: 900;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.3rem;
+  margin: 0.5rem;
+  transition: transform 0.5s ease-in-out;
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+div {
+  background: var(--pixim-surface);
+  height: 100%;
+  padding: 1rem;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0
+  }
+}
