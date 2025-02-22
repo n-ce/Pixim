@@ -8,7 +8,7 @@ export default defineConfig({
   base: '/Pixim/',
   build: {
     lib: {
-      entry: resolve(__dirname, 'index.ts'),
+      entry: resolve(__dirname, 'src/index.ts'),
       name: 'Pixim'
     }
   },
