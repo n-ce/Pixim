@@ -1,18 +1,16 @@
 export default async function(
   src: string,
   useOffscreenCanvas: boolean = true
-): Promise<{
-  r: number,
-  g: number,
-  b: number
-}> {
+): Promise<Record<'r' | 'g' | 'b', number>> {
 
   const canvas = useOffscreenCanvas
     ? new OffscreenCanvas(512, 512)
     : <HTMLCanvasElement>document.createElement('canvas');
   const context = <
     OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D
-    >canvas.getContext('2d', { alpha: false });
+    >canvas.getContext('2d', {
+      alpha: false,
+    });
 
   const canvasImg = new Image();
 
@@ -42,6 +40,7 @@ export default async function(
     side
   );
 
+
   const data = context.getImageData(0, 0, side, side).data;
   const len = data.length;
   let r = 0, g = 0, b = 0;
@@ -52,12 +51,11 @@ export default async function(
     b += data[i + 2];
   }
   const amount = len / 4;
+  r = Math.floor(r / amount),
+    g = Math.floor(g / amount),
+    b = Math.floor(b / amount);
 
-  return {
-    r: r / amount,
-    g: g / amount,
-    b: b / amount
-  };
+  return { r, g, b };
 
 }
 

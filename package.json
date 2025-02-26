@@ -12,5 +12,8 @@
     "modern-normalize": "latest",
     "typescript": "latest",
     "vite": "latest"
+  },
+  "dependencies": {
+    "extract-colors": "^4.1.1"
   }
 }

@@ -1,24 +1,27 @@
-import extractRGBFromImage from "./extractRGBFromImage";
-import getHSLFromRGB from "./getHSLFromRGB";
+import getAvgRGBFromImage from "./getAvgRGBFromImage";
 
 export default async function(src: string) {
-  const { h, s, l } = getHSLFromRGB(
-    await extractRGBFromImage(src)
-  );
 
+  const { r, g, b } = await getAvgRGBFromImage(src);
+  const color = `rgb(${r},${g},${b})`
   const root = document.documentElement;
-  const schemes = {
-    light: ['#eee', 'red'],
-    dark: ['#111', '#eee'],
-    white: ['#fff', '#000'],
-    black: ['#000', '#fff']
+  const tabColor = document.querySelector('[name="theme-color"]') as HTMLMetaElement;
+  const lightness = {
+    light: {
+      dynamic: '80%',
+      highContrast: '100%'
+    },
+    dark: {
+      dynamic: '20%',
+      highContrast: '0%'
+    }
   };
-  const tabcolor = document.querySelector('[name="theme-color"]') as HTMLMetaElement;
+  const theme = 'light';
+  const type = 'dynamic';
 
-  root.style.setProperty('--pixim-color', `hsl(${h},${s},${l})`);
-  root.style.setProperty('--pixim-scheme', schemes.light[0]);
+  root.style.setProperty('--color', `oklch(from ${color} l c h)`);
+  root.style.setProperty('--lightness', lightness[theme][type]);
+  tabColor.content = `oklch(from ${color} ${lightness[theme][type]} c h)`;
 
-  tabcolor.content = `hsl(${h},30%,80%)`;
-
-
+  return color;
 }
